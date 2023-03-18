@@ -4,8 +4,6 @@ import dotenv from 'dotenv';
 dotenv.config({path: './.env'});
 import cors from 'cors';
 import bodyParser from 'body-parser';
-//const express = require('express'); //nodejs
-//const cors = require('cors'); /nodejs
 const app = express();
 
 //Connect to the data base
@@ -24,27 +22,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());*/
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
+app.get('/', function(req, res) {
+  res.sendFile(process.cwd() + '/views/index.html');
+});
+
 app.use('/', uIndexRouter);
-app.use('/api', urlsRouter);
+app.use('/', urlsRouter);
 
 // Listening port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running at PORT ${PORT}`);
 });
-
-/*app.get('/', function(req, res) {
-  res.sendFile(process.cwd() + '/views/index.html');
-});
-
-// Your first API endpoint
-app.get('/api/hello', function(req, res) {
-  res.json({ greeting: 'hello API' });
-});*/
 
 /*app.route('/api/shorturl')
 .get((req,res) => {

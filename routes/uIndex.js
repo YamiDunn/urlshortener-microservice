@@ -1,7 +1,7 @@
 import express from 'express';
 import Url from '../url.js';
 const router = express.Router();
-
+//Redirection url by its id
 router.get ('/:urlId', async (req, res) => {
     try {
         const url = await Url.findOne({ urlId: req.params.urlId });
